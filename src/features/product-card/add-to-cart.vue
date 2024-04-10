@@ -9,10 +9,11 @@
   }
 </script>
 
-<template #add-to-cart>
+<template>
   <img
     :src="src"
     alt="Добавить в корзину"
+    title="Добавить в корзину"
     @click="onToggleAdd"
   />
 </template>

@@ -2,39 +2,74 @@
   import { ProductCardTemplate } from '@/entities/product-card-template';
   import AddToCart from '@/features/product-card/add-to-cart.vue';
   import AddToFavorite from '@/features/product-card/add-to-favorite.vue';
+  import { reactive, ref, watchEffect } from 'vue';
+  import { getItems } from '@/shared/api';
+  import { vAutoAnimate } from '@formkit/auto-animate';
+  import type { ProductItem, QueryParams } from '@/shared/types';
+
+  const items = ref<ProductItem[]>([]);
+  const filters = reactive({
+    sortBy: 'id',
+    query: '',
+  });
+
+  watchEffect(async () => {
+    const params: QueryParams = {
+      sortBy: filters.sortBy,
+    };
+
+    if (filters.query) {
+      params.title = `*${filters.query}*`;
+    }
+
+    items.value = await getItems(params);
+  });
 </script>
 
 <template>
   <main class="p-10">
-    <div class="flex justify-between items-center">
+    <div class="flex items-center justify-between">
       <h2 class="text-3xl font-bold">Все кроссовки</h2>
       <div class="flex gap-4">
-        <select class="py-2 px-2 border rounded-md outline-none">
-          <option>По названию</option>
-          <option>По возрастанию цены</option>
-          <option>По убыванию цены</option>
+        <select
+          v-model="filters.sortBy"
+          class="rounded-md border px-2 py-2 outline-none"
+        >
+          <option
+            disabled
+            value="id"
+          >
+            Отсортировать
+          </option>
+          <option value="title">По названию</option>
+          <option value="price">По возрастанию цены</option>
+          <option value="-price">По убыванию цены</option>
         </select>
-        <div class="flex relative">
+        <div class="relative flex">
           <img
             src="/search.svg"
             alt="Поиск"
-            class="absolute top-2.5 left-2.5"
+            class="absolute left-2.5 top-2.5"
           />
           <input
             type="text"
             placeholder="Поиск..."
-            class="rounded-md border outline-none focus:border-gray-400 py-1 pl-8 px-2"
+            v-model="filters.query"
+            class="rounded-md border px-2 py-1 pl-8 outline-none focus:border-gray-400"
           />
         </div>
       </div>
     </div>
-    <ul class="grid gap-5 pt-7 product-list">
+    <ul
+      class="product-list grid gap-5 pt-7"
+      v-auto-animate
+    >
       <product-card-template
-        v-for="i in 12"
-        :key="i"
-        name="Мужские Кроссовки Nike Blazer Mid Suede"
-        img-url="/sneakers/sneakers-1.jpg"
-        price="12999"
+        v-for="item in items"
+        :key="item.id"
+        :title="item.title"
+        :image-url="item.imageUrl"
+        :price="item.price"
         placement="list"
       >
         <template #add-to-favorite>
@@ -50,6 +85,6 @@
 
 <style scoped>
   .product-list {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 </style>

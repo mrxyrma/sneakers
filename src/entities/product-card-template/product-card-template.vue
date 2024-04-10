@@ -2,9 +2,9 @@
   import { computed } from 'vue';
 
   type Props = {
-    name: string;
+    title: string;
     price: number;
-    imgUrl: string;
+    imageUrl: string;
     placement: 'cart' | 'list';
   };
 
@@ -18,18 +18,18 @@
 
 <template>
   <div
-    class="grid gap-2 rounded-2xl p-5 border cursor-pointer"
+    class="grid cursor-pointer gap-2 rounded-2xl border p-5"
     :class="stylesByPlacement"
   >
     <div>
       <slot name="add-to-favorite"></slot>
       <img
-        :src="imgUrl"
+        :src="imageUrl"
         alt="Фото товара"
       />
     </div>
     <div>
-      <div>{{ name }}</div>
+      <div>{{ title }}</div>
       <div class="flex items-center justify-between">
         <div>
           <p
