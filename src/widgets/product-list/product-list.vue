@@ -1,11 +1,14 @@
 <script setup lang="ts">
   import { ProductCardTemplate } from '@/entities/product-card-template';
-  import AddToCart from '@/features/product-card/add-to-cart.vue';
-  import AddToFavorite from '@/features/product-card/add-to-favorite.vue';
+  import { AddToCart } from '@/features/product-card/';
+  import { AddToFavorite } from '@/features/product-card';
   import { reactive, ref, watchEffect } from 'vue';
   import { getItems } from '@/shared/api';
   import { vAutoAnimate } from '@formkit/auto-animate';
   import type { ProductItem, QueryParams } from '@/shared/types';
+  import { useCartStore } from '@/shared/stores';
+
+  const cartStore = useCartStore();
 
   const items = ref<ProductItem[]>([]);
   const filters = reactive({
@@ -76,7 +79,7 @@
           <add-to-favorite />
         </template>
         <template #add|remove-from-cart>
-          <add-to-cart />
+          <add-to-cart :item="item" />
         </template>
       </product-card-template>
     </ul>

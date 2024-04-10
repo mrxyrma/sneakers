@@ -1,2 +1,3 @@
-export * from './add-to-cart.vue';
-export * from './add-to-favorite.vue';
+export * from './remove-from-cart';
+export * from './add-to-favorite';
+export * from './add-to-cart';

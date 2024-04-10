@@ -1,4 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { useCartStore } from '@/shared/stores';
+
+  const cartStore = useCartStore();
+
+  function hideCart() {
+    cartStore.isCartVisible = false;
+  }
+</script>
 
 <template>
   <svg
@@ -7,7 +15,8 @@
     viewBox="0 0 16 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    class="rotate-180 opacity-50 cursor-pointer hover:-translate-x-0.5 hover:opacity-100 transition"
+    class="rotate-180 cursor-pointer opacity-50 transition hover:-translate-x-0.5 hover:opacity-100"
+    @click="hideCart"
   >
     <path
       d="M1 7H14.7143"

@@ -2,12 +2,17 @@
   import { AppHeader } from '@/widgets/app-header';
   import { ProductList } from '@/widgets/product-list';
   import { UserCart } from '@/widgets/user-cart';
+  import { useCartStore } from '@/shared/stores';
+  import { storeToRefs } from 'pinia';
+
+  const cartStore = useCartStore();
+  const { isCartVisible } = storeToRefs(cartStore);
 </script>
 
 <template>
-  <div class="mx-auto rounded-xl shadow-2xl w-4/5 bg-white my-20">
+  <div class="mx-auto my-20 w-4/5 rounded-xl bg-white shadow-2xl">
     <app-header />
     <product-list />
-    <!--    <user-cart />-->
+    <user-cart v-if="isCartVisible" />
   </div>
 </template>
