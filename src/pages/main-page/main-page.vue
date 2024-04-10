@@ -8,6 +8,6 @@
   <div class="mx-auto rounded-xl shadow-2xl w-4/5 bg-white my-20">
     <app-header />
     <product-list />
-    <user-cart />
+    <!--    <user-cart />-->
   </div>
 </template>

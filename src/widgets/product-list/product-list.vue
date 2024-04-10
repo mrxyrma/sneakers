@@ -6,7 +6,28 @@
 
 <template>
   <main class="p-10">
-    <h2 class="text-3xl font-bold">Все кроссовки</h2>
+    <div class="flex justify-between items-center">
+      <h2 class="text-3xl font-bold">Все кроссовки</h2>
+      <div class="flex gap-4">
+        <select class="py-2 px-2 border rounded-md outline-none">
+          <option>По названию</option>
+          <option>По возрастанию цены</option>
+          <option>По убыванию цены</option>
+        </select>
+        <div class="flex relative">
+          <img
+            src="/search.svg"
+            alt="Поиск"
+            class="absolute top-2.5 left-2.5"
+          />
+          <input
+            type="text"
+            placeholder="Поиск..."
+            class="rounded-md border outline-none focus:border-gray-400 py-1 pl-8 px-2"
+          />
+        </div>
+      </div>
+    </div>
     <ul class="grid gap-5 pt-7 product-list">
       <product-card-template
         v-for="i in 12"
