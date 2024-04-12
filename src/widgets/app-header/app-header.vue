@@ -1,10 +1,16 @@
 <script setup lang="ts">
-  import { useCartStore } from '@/shared/stores';
+  import { useCartStore, useProductsStore } from '@/shared/stores';
   import { computed } from 'vue';
+  import { useRoute } from 'vue-router';
 
   const cartStore = useCartStore();
+  const productStore = useProductsStore();
+  const route = useRoute();
 
-  const priceSum = computed(() => cartStore.itemsInCart.reduce((acc, cur) => acc + cur.price, 0));
+  const isFavoriteProducts = computed(() => route.name === 'favoriteProducts');
+  const priceSum = computed(() =>
+    productStore.products.filter(item => item.cartId).reduce((acc, cur) => acc + cur.price, 0)
+  );
 
   function showCart() {
     cartStore.isCartVisible = true;
@@ -32,10 +38,15 @@
         <img src="/cart.svg" />
         <b>{{ priceSum }} руб.</b>
       </li>
-      <li class="flex cursor-pointer gap-2 text-gray-500 hover:text-black">
-        <img src="/heart.svg" />
-        <span>Закладки</span>
-      </li>
+      <router-link :to="{ name: 'favoriteProducts' }">
+        <li
+          class="flex cursor-pointer gap-2 text-gray-500 hover:text-black"
+          :class="{ 'font-bold text-black underline': isFavoriteProducts }"
+        >
+          <img src="/heart.svg" />
+          <span>Закладки</span>
+        </li>
+      </router-link>
       <li class="flex cursor-pointer gap-2 text-gray-500 hover:text-black">
         <img src="/profile.svg" />
         <span>Профиль</span>
