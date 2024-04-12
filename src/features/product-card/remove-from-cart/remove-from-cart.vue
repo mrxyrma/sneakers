@@ -1,16 +1,24 @@
 <script setup lang="ts">
-  import { useCartStore } from '@/shared/stores';
+  import { useProductsStore } from '@/shared/stores';
+  import { removeFromCart } from '@/shared/api';
 
   type Props = {
+    cartId: number | null;
     id: number;
   };
 
-  defineProps<Props>();
+  const props = defineProps<Props>();
 
-  const cartStore = useCartStore();
+  const productsStore = useProductsStore();
 
-  function removeFromCart(id: number): void {
-    cartStore.itemsInCart = cartStore.itemsInCart.filter(item => item.id !== id);
+  function remove() {
+    try {
+      removeFromCart(props.cartId!).then(
+        res => (productsStore.products.find(item => item.id === props.id)!.cartId = null)
+      );
+    } catch (e) {
+      console.error(e);
+    }
   }
 </script>
 
@@ -18,6 +26,6 @@
   <img
     src="/close.svg"
     alt="Удалить из корзины"
-    @click="() => removeFromCart(id)"
+    @click="remove"
   />
 </template>

@@ -1,11 +1,38 @@
 <script setup lang="ts">
-  import { computed, ref } from 'vue';
+  import { computed } from 'vue';
+  import { addToFavorites, removeFromFavorites } from '@/shared/api';
+  import { useProductsStore } from '@/shared/stores';
 
-  const isFavorite = ref(false);
-  const src = computed(() => (isFavorite.value ? '/like-2.svg' : '/like-1.svg'));
+  type Props = {
+    favId: number | null;
+    id: number;
+    index: number;
+  };
 
-  function onToggleFavorite(): void {
-    isFavorite.value = !isFavorite.value;
+  const props = defineProps<Props>();
+
+  const productsStore = useProductsStore();
+
+  const src = computed(() => (props.favId ? '/like-2.svg' : '/like-1.svg'));
+
+  function onToggleFavorite() {
+    if (props.favId) {
+      try {
+        removeFromFavorites(props.favId).then(res => {
+          productsStore.products[props.index].favId = null;
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      try {
+        addToFavorites(props.id).then(res => {
+          productsStore.products[props.index].favId = res.id;
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
   }
 </script>
 

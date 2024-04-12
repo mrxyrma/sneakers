@@ -1,23 +1,33 @@
 <script setup lang="ts">
   import { computed } from 'vue';
-  import { useCartStore } from '@/shared/stores';
-  import type { ProductItem } from '@/shared/types';
+  import { useProductsStore } from '@/shared/stores';
+  import { addToCart, removeFromCart } from '@/shared/api';
 
   type Props = {
-    item: ProductItem;
+    cartId: number | null;
+    id: number;
+    index: number;
   };
 
   const props = defineProps<Props>();
 
-  const cartStore = useCartStore();
+  const productsStore = useProductsStore();
 
-  const src = computed(() => (cartStore.itemsInCart.includes(props.item) ? '/checked.svg' : '/plus.svg'));
+  const src = computed(() => (props.cartId ? '/checked.svg' : '/plus.svg'));
 
-  function onToggleAddition(item: ProductItem): void {
-    if (!cartStore.itemsInCart.includes(item)) {
-      cartStore.itemsInCart.push(item);
+  function onToggleAddition() {
+    if (props.cartId) {
+      try {
+        removeFromCart(props.cartId).then(res => (productsStore.products[props.index].cartId = null));
+      } catch (e) {
+        console.error(e);
+      }
     } else {
-      cartStore.itemsInCart = cartStore.itemsInCart.filter(i => i.id !== item.id);
+      try {
+        addToCart(props.id).then(res => (productsStore.products[props.index].cartId = res.id));
+      } catch (e) {
+        console.error(e);
+      }
     }
   }
 </script>
@@ -27,6 +37,6 @@
     :src="src"
     alt="Добавить в корзину"
     title="Добавить в корзину"
-    @click="() => onToggleAddition(item)"
+    @click="onToggleAddition"
   />
 </template>

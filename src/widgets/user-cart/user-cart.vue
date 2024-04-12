@@ -2,11 +2,11 @@
   import { CloseCart } from '@/features/cart';
   import { EmptyCart } from '@/entities/empty-cart';
   import CartProductList from './cart-product-list.vue';
-  import { useCartStore } from '@/shared/stores';
-  import { storeToRefs } from 'pinia';
+  import { useProductsStore } from '@/shared/stores';
+  import { computed } from 'vue';
 
-  const cartStore = useCartStore();
-  const { isCartEmpty } = storeToRefs(cartStore);
+  const productsStore = useProductsStore();
+  const isCartEmpty = computed(() => !productsStore.products.find(item => item.cartId));
 </script>
 
 <template>
