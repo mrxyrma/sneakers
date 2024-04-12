@@ -26,9 +26,10 @@
       <img
         :src="imageUrl"
         alt="Фото товара"
+        class="mx-auto max-h-48 object-contain"
       />
     </div>
-    <div>
+    <div class="flex flex-col justify-between gap-1">
       <div>{{ title }}</div>
       <div class="flex items-center justify-between">
         <div>

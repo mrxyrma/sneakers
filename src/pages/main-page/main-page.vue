@@ -1,18 +1,14 @@
 <script setup lang="ts">
-  import { AppHeader } from '@/widgets/app-header';
   import { ProductList } from '@/widgets/product-list';
-  import { UserCart } from '@/widgets/user-cart';
-  import { useCartStore } from '@/shared/stores';
-  import { storeToRefs } from 'pinia';
-
-  const cartStore = useCartStore();
-  const { isCartVisible } = storeToRefs(cartStore);
+  import { SortAndSearch } from '@/features/sort-and-search/ui';
 </script>
 
 <template>
-  <div class="mx-auto my-20 w-4/5 rounded-xl bg-white shadow-2xl">
-    <app-header />
+  <main class="p-10">
+    <div class="flex items-center justify-between">
+      <h2 class="text-3xl font-bold">Все кроссовки</h2>
+      <sort-and-search />
+    </div>
     <product-list />
-    <user-cart v-if="isCartVisible" />
-  </div>
+  </main>
 </template>
