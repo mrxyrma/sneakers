@@ -6,7 +6,6 @@
   type Props = {
     cartId: number | null;
     id: number;
-    index: number;
   };
 
   const props = defineProps<Props>();
@@ -18,13 +17,15 @@
   function onToggleAddition() {
     if (props.cartId) {
       try {
-        removeFromCart(props.cartId).then(res => (productsStore.products[props.index].cartId = null));
+        removeFromCart(props.cartId).then(
+          res => (productsStore.products.find(item => item.id === props.id)!.cartId = null)
+        );
       } catch (e) {
         console.error(e);
       }
     } else {
       try {
-        addToCart(props.id).then(res => (productsStore.products[props.index].cartId = res.id));
+        addToCart(props.id).then(res => (productsStore.products.find(item => item.id === props.id)!.cartId = res.id));
       } catch (e) {
         console.error(e);
       }

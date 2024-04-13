@@ -12,7 +12,9 @@
 <template>
   <div class="mx-auto my-20 w-4/5 rounded-xl bg-white shadow-2xl">
     <app-header />
-    <RouterView class="wrapper" />
+    <main class="wrapper p-10">
+      <RouterView />
+    </main>
   </div>
 
   <user-cart v-if="isCartVisible" />

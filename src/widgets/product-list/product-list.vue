@@ -2,25 +2,23 @@
   import { ProductCardTemplate } from '@/entities/product-card-template';
   import { AddToCart } from '@/features/product-card/';
   import { AddToFavorite } from '@/features/product-card';
-  import { onMounted } from 'vue';
   import { vAutoAnimate } from '@formkit/auto-animate';
-  import { useProductsStore } from '@/shared/stores';
-  import { storeToRefs } from 'pinia';
-  import { fetchProducts } from '@/features/sort-and-search/model';
+  import type { ProductItem } from '@/shared/types';
 
-  const productStore = useProductsStore();
-  const { products } = storeToRefs(productStore);
+  type Props = {
+    products: ProductItem[];
+  };
 
-  onMounted(fetchProducts);
+  defineProps<Props>();
 </script>
 
 <template>
   <ul
-    class="product-list grid gap-5 pt-7"
+    class="product-list grid gap-5"
     v-auto-animate
   >
     <product-card-template
-      v-for="(product, index) in products"
+      v-for="product in products"
       :key="product.id"
       :title="product.title"
       :image-url="product.imageUrl"
@@ -31,14 +29,12 @@
         <add-to-favorite
           :id="product.id"
           :fav-id="product.favId"
-          :index="index"
         />
       </template>
       <template #add|remove-from-cart>
         <add-to-cart
           :id="product.id"
           :cart-id="product.cartId"
-          :index="index"
         />
       </template>
     </product-card-template>

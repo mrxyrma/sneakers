@@ -1,13 +1,10 @@
 <script setup lang="ts">
   import { useCartStore, useProductsStore } from '@/shared/stores';
   import { computed } from 'vue';
-  import { useRoute } from 'vue-router';
 
   const cartStore = useCartStore();
   const productStore = useProductsStore();
-  const route = useRoute();
 
-  const isFavoriteProducts = computed(() => route.name === 'favoriteProducts');
   const priceSum = computed(() =>
     productStore.products.filter(item => item.cartId).reduce((acc, cur) => acc + cur.price, 0)
   );
@@ -35,20 +32,26 @@
         class="flex cursor-pointer gap-2 text-gray-500 hover:text-black"
         @click="showCart"
       >
-        <img src="/cart.svg" />
+        <img
+          src="/cart.svg"
+          alt="Корзина"
+        />
         <b>{{ priceSum }} руб.</b>
       </li>
       <router-link :to="{ name: 'favoriteProducts' }">
-        <li
-          class="flex cursor-pointer gap-2 text-gray-500 hover:text-black"
-          :class="{ 'font-bold text-black underline': isFavoriteProducts }"
-        >
-          <img src="/heart.svg" />
+        <li class="flex cursor-pointer gap-2 text-gray-500 hover:text-black">
+          <img
+            src="/heart.svg"
+            alt="Закладки"
+          />
           <span>Закладки</span>
         </li>
       </router-link>
       <li class="flex cursor-pointer gap-2 text-gray-500 hover:text-black">
-        <img src="/profile.svg" />
+        <img
+          src="/profile.svg"
+          alt="Профиль пользователя"
+        />
         <span>Профиль</span>
       </li>
     </ul>

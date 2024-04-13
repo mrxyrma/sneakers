@@ -6,7 +6,6 @@
   type Props = {
     favId: number | null;
     id: number;
-    index: number;
   };
 
   const props = defineProps<Props>();
@@ -19,7 +18,7 @@
     if (props.favId) {
       try {
         removeFromFavorites(props.favId).then(res => {
-          productsStore.products[props.index].favId = null;
+          productsStore.products.find(item => item.id === props.id)!.favId = null;
         });
       } catch (e) {
         console.error(e);
@@ -27,7 +26,7 @@
     } else {
       try {
         addToFavorites(props.id).then(res => {
-          productsStore.products[props.index].favId = res.id;
+          productsStore.products.find(item => item.id === props.id)!.favId = res.id;
         });
       } catch (e) {
         console.error(e);
