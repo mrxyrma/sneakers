@@ -10,9 +10,9 @@
 </script>
 
 <template>
-  <div class="mx-auto my-20 w-4/5 rounded-xl bg-white shadow-2xl">
+  <div class="mx-auto my-14 w-4/5 rounded-xl bg-white shadow-2xl">
     <app-header />
-    <main class="wrapper p-10">
+    <main class="wrapper relative p-10">
       <RouterView />
     </main>
   </div>
@@ -22,6 +22,6 @@
 
 <style scoped>
   .wrapper {
-    min-height: calc(100vh - 160px - 133px);
+    min-height: calc(100vh - 112px - 133px);
   }
 </style>

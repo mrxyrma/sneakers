@@ -3,6 +3,7 @@ import { computed, reactive, ref } from 'vue';
 import type { ProductItem } from '@/shared/types';
 
 export const useProductsStore = defineStore('products', () => {
+  const isLoading = ref(false);
   const products = ref<ProductItem[]>([]);
   const filters = reactive({
     sortBy: '',
@@ -11,5 +12,5 @@ export const useProductsStore = defineStore('products', () => {
 
   const priceSum = computed(() => products.value.filter(item => item.cartId).reduce((acc, cur) => acc + cur.price, 0));
 
-  return { products, filters, priceSum };
+  return { products, filters, priceSum, isLoading };
 });

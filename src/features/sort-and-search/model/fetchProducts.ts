@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia';
 
 export const fetchProducts = async () => {
   const productsStore = useProductsStore();
-  const { filters, products } = storeToRefs(productsStore);
+  const { filters, products, isLoading } = storeToRefs(productsStore);
 
   const params: QueryParams = {};
 
@@ -18,6 +18,8 @@ export const fetchProducts = async () => {
   }
 
   try {
+    if (!products.value.length) isLoading.value = true;
+
     let prods: ProductItem[] = await getProducts(params);
 
     prods = await getFavorites().then(res =>
@@ -38,4 +40,6 @@ export const fetchProducts = async () => {
   } catch (e) {
     console.error(e);
   }
+
+  isLoading.value = false;
 };
