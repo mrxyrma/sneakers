@@ -1,16 +1,12 @@
 <script setup lang="ts">
   import { useCartStore, useProductsStore } from '@/shared/stores';
-  import { computed } from 'vue';
 
   const cartStore = useCartStore();
   const productStore = useProductsStore();
 
-  const priceSum = computed(() =>
-    productStore.products.filter(item => item.cartId).reduce((acc, cur) => acc + cur.price, 0)
-  );
-
   function showCart() {
     cartStore.isCartVisible = true;
+    document.querySelector('body')!.style.overflow = 'hidden';
   }
 </script>
 
@@ -36,7 +32,7 @@
           src="/cart.svg"
           alt="Корзина"
         />
-        <b>{{ priceSum }} руб.</b>
+        <b>{{ productStore.priceSum }} руб.</b>
       </li>
       <router-link :to="{ name: 'favoriteProducts' }">
         <li class="flex cursor-pointer gap-2 text-gray-500 hover:text-black">

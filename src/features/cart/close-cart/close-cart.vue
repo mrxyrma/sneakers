@@ -5,6 +5,7 @@
 
   function hideCart() {
     cartStore.isCartVisible = false;
+    document.querySelector('body')!.style.overflow = 'auto';
   }
 </script>
 

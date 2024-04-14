@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import type { ProductItem } from '@/shared/types';
 
 export const useProductsStore = defineStore('products', () => {
@@ -9,5 +9,7 @@ export const useProductsStore = defineStore('products', () => {
     query: '',
   });
 
-  return { products, filters };
+  const priceSum = computed(() => products.value.filter(item => item.cartId).reduce((acc, cur) => acc + cur.price, 0));
+
+  return { products, filters, priceSum };
 });

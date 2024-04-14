@@ -5,15 +5,16 @@
   import { useProductsStore } from '@/shared/stores';
   import { vAutoAnimate } from '@formkit/auto-animate';
   import { computed } from 'vue';
+  import { ProductPriceSum } from '@/entities/product-price-sum';
 
   const productsStore = useProductsStore();
   const productsInCart = computed(() => productsStore.products.filter(item => item.cartId));
 </script>
 
 <template>
-  <div class="flex flex-auto flex-col justify-between">
+  <div class="flex flex-auto flex-col gap-3">
     <ul
-      class="grid gap-2"
+      class="-mr-5 flex h-1 grow flex-col gap-2 overflow-scroll pb-2 pr-5"
       v-auto-animate
     >
       <product-card-template
@@ -32,6 +33,7 @@
         </template>
       </product-card-template>
     </ul>
+    <product-price-sum />
     <make-order />
   </div>
 </template>

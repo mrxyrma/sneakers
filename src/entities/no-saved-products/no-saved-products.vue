@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-center">
+  <div class="flex grow flex-col items-center justify-center">
     <img
       src="/emoji-1.png"
       alt=":("
