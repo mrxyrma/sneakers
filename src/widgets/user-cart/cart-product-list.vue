@@ -2,13 +2,21 @@
   import { ProductCardTemplate } from '@/entities/product-card-template';
   import { RemoveFromCart } from '@/features/product-card';
   import MakeOrder from '@/features/cart/make-order/make-order.vue';
-  import { useProductsStore } from '@/shared/stores';
+  import { useCartStore } from '@/shared/stores';
   import { vAutoAnimate } from '@formkit/auto-animate';
-  import { computed } from 'vue';
   import { ProductPriceSum } from '@/entities/product-price-sum';
 
-  const productsStore = useProductsStore();
-  const productsInCart = computed(() => productsStore.products.filter(item => item.cartId));
+  type Emits = {
+    (event: 'orderComplete', orderId: number): void;
+  };
+
+  const emit = defineEmits<Emits>();
+
+  const cartStore = useCartStore();
+
+  const orderComplete = (orderId: number) => {
+    emit('orderComplete', orderId);
+  };
 </script>
 
 <template>
@@ -18,7 +26,7 @@
       v-auto-animate
     >
       <product-card-template
-        v-for="product in productsInCart"
+        v-for="product in cartStore.productsInCart"
         :key="product.id"
         :title="product.title"
         :image-url="product.imageUrl"
@@ -34,6 +42,6 @@
       </product-card-template>
     </ul>
     <product-price-sum />
-    <make-order />
+    <make-order @order-complete="orderComplete" />
   </div>
 </template>

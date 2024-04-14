@@ -38,3 +38,7 @@ export async function addToCart(id: number): Promise<{ id: number; productId: nu
 export async function removeFromCart(id: number) {
   return http.delete(`/cart/${id}`).then(res => res.data);
 }
+
+export async function addOrder(order: ProductItem[]): Promise<{ id: number; order: ProductItem[] }> {
+  return http.post('/orders', { order }).then(res => res.data);
+}
