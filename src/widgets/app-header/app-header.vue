@@ -32,7 +32,7 @@
           src="/cart.svg"
           alt="Корзина"
         />
-        <b>{{ productStore.priceSum }} руб.</b>
+        <b data-cy="header-price-sum">{{ productStore.priceSum }} руб.</b>
       </li>
       <router-link :to="{ name: 'favoriteProducts' }">
         <li class="flex cursor-pointer gap-2 text-gray-500 hover:text-black">

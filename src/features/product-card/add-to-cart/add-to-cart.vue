@@ -39,5 +39,6 @@
     alt="Добавить в корзину"
     title="Добавить в корзину"
     @click="onToggleAddition"
+    :data-cy="`add-to-cart-${id}`"
   />
 </template>

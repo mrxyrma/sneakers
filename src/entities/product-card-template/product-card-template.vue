@@ -17,7 +17,7 @@
 </script>
 
 <template>
-  <div
+  <li
     class="grid cursor-pointer gap-2 rounded-2xl border p-5"
     :class="stylesByPlacement"
   >
@@ -44,7 +44,7 @@
         <slot name="add|remove-from-cart"></slot>
       </div>
     </div>
-  </div>
+  </li>
 </template>
 
 <style scoped>
