@@ -1,0 +1,22 @@
+{
+  "include": [
+    "**/*.ts",
+    "../src/**/*.cy.ts",
+    "./cypress.d.ts"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "es5",
+      "dom"
+    ],
+    "types": [
+      "cypress",
+      "node"
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  }
+}
