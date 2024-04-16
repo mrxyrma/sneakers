@@ -1,0 +1,23 @@
+{
+  "order": [
+    {
+      "id": 4,
+      "title": "Кроссовки Puma X Aka Boku Future Rider",
+      "price": 7800,
+      "imageUrl": "/sneakers/sneakers-4.jpg"
+    },
+    {
+      "id": 7,
+      "title": "Кроссовки Orange Boomb Edition",
+      "price": 7499,
+      "imageUrl": "/sneakers/sneakers-7.jpg"
+    },
+    {
+      "id": 10,
+      "title": "Кроссовки Adidas Ultraboost",
+      "price": 11500,
+      "imageUrl": "/sneakers/sneakers-10.jpg"
+    }
+  ],
+  "id": 1
+}

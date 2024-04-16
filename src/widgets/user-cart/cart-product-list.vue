@@ -32,16 +32,21 @@
         :image-url="product.imageUrl"
         :price="product.price"
         placement="cart"
+        data-cy="product-card-in-cart"
       >
         <template #add|remove-from-cart>
           <remove-from-cart
             :cart-id="product.cartId"
             :id="product.id"
+            data-cy="remove-from-cart"
           />
         </template>
       </product-card-template>
     </ul>
     <product-price-sum />
-    <make-order @order-complete="orderComplete" />
+    <make-order
+      @order-complete="orderComplete"
+      data-cy="make-order"
+    />
   </div>
 </template>

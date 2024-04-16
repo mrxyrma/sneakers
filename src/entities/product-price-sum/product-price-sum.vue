@@ -8,6 +8,6 @@
   <div class="flex">
     <p>Итого:</p>
     <span class="grow border-b-2 border-dotted border-gray-300"></span>
-    <p>{{ productsStore.priceSum }} руб.</p>
+    <p data-cy="cart-price-sum">{{ productsStore.priceSum }} руб.</p>
   </div>
 </template>
