@@ -20,6 +20,7 @@
   <li
     class="grid cursor-pointer gap-2 rounded-2xl border p-5"
     :class="stylesByPlacement"
+    data-cy="product-card"
   >
     <div>
       <slot name="add-to-favorite"></slot>
@@ -36,6 +37,7 @@
           <p
             v-if="isList"
             class="uppercase text-slate-300"
+            data-cy="price"
           >
             Цена:
           </p>

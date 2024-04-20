@@ -1,8 +1,18 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress/vue';
-import { createPinia } from 'pinia';
+import { createPinia, setActivePinia } from 'pinia';
 import router from '@/app/router';
 import '@/app/main.css';
+
+let pinia;
+
+beforeEach(() => {
+  // New Pinia
+  pinia = createPinia();
+
+  // Set current Pinia instance
+  setActivePinia(pinia);
+});
 
 Cypress.Commands.add('mount', (component, options = {}) => {
   // Setup options object
@@ -12,14 +22,9 @@ Cypress.Commands.add('mount', (component, options = {}) => {
   options.global.components = options.global.components || {};
   options.global.plugins = options.global.plugins || [];
 
-  const pinia = createPinia();
-
   /* Add any global plugins */
-  options.global.plugins.push({
-    install(app) {
-      app.use(router).use(pinia);
-    },
-  });
+  options.global.plugins.push(pinia);
+  options.global.plugins.push(router);
 
   return mount(component, options);
 });
